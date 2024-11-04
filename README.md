@@ -1,7 +1,15 @@
-# Marten Mrfc
+Hi 👋 My name is Marten
+=======================
 [![wakatime](https://wakatime.com/badge/user/018eaa8a-d4da-4d9d-bfb4-48e601e0a2cb.svg)](https://wakatime.com/@018eaa8a-d4da-4d9d-bfb4-48e601e0a2cb)
-# About me
-Hey, I am Marten. I'm just a teenager trying to learn coding, so don't expect much of me, but what I can offer are some amazing skills!
+
+MC Plugin developer
+-------------------
+
+Hey! I’m Marten, a developer with my interest in Kotlin, HTML, CSS, JavaScript, and TSX. I’m all about learning coding and working on different types of projects, especially in small teams, where I can get creative and efficient. Furthermore, I host most of my projects on GitHub. Balancing school with my tech obsession, I’m just getting started!
+
+* 🌍  I'm based in the Netherlands
+* ✉️  You can contact me at [martensog@gmail.com](mailto:martensog@gmail.com)
+* 🧠  I'm learning Kotlin, javascript and docker
 
 ## Languages:
 I have coded in all of these languages!
