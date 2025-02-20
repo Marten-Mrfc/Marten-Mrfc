@@ -1,0 +1,70 @@
+[
+    {
+        "slug": "project-website",
+        "title": "Website Project",
+        "description": "Dit was een project waar we een website moesten maken met de hulp van Mark Boom",
+        "imageUrl": "https://placehold.co/600x400/tech/portfolio",
+        "link": "https://portfolio.example.com",
+        "content": "Dit project was voor de klas een moeilijk project maar ik vond het redelijk makkelijk omdat ik veel voorkennis over programeren had. Ik heb daarom ervoor gekozen om de site in <b>svelte</b> te maken. <br><br><b>Pro's</b> <ul><li>Ik heb veel geleerd</li><li>Ik heb mijn kennis kunnen delen met mijn klasgenoten</li><li>Ik heb een mooie site gemaakt</li></ul><br><b>Con's</b> <ul><li>Er waren vaak momenten waarbij ik anderen moest helpen</li></ul>",
+        "tags": ["Web Development", "Svelte", "School"],
+        "startDate": "2025-01-06",
+        "endDate": "2025-02-14"
+    },
+    {
+        "slug": "eigen-project",
+        "title": "Eigen Project",
+        "description": "In dit project heb ik verschillende robots gemaakt",
+        "imageUrl": "https://placehold.co/600x400/tech/taskapp",
+        "link": "https://taskapp.example.com",
+        "content": "Dit project is nu nog gaande en is nog niet af.",
+        "tags": ["Robot", "Technologie", "School"],
+        "startDate": "2024-11-05"
+    },
+    {
+        "slug": "vakantie-project",
+        "title": "Vakantie Project",
+        "description": "Dit project moesten we een tekening maken over onze vakantie",
+        "imageUrl": "https://placehold.co/600x400/tech/ecommerce",
+        "link": "https://shop.example.com",
+        "content": "Ik heb een tekening gemaakt over mijn vakantie.",
+        "tags": ["School", "tekening", "Vakantie"],
+        "startDate": "2023-06-01",
+        "endDate": "2023-08-30"
+    },
+    {
+        "slug": "ai-image-classifier",
+        "title": "VB: AI Image Classification System",
+        "description": "VB: Deep learning model that classifies images into multiple categories with high accuracy using TensorFlow.",
+        "imageUrl": "https://placehold.co/600x400/tech/ai",
+        "link": "https://aiclassifier.example.com",
+        "content": "<p>Developed an AI-powered image classification system with:</p><ul><li>Custom CNN architecture</li><li>Web interface for easy testing</li><li>API endpoint for integration</li><li>95% accuracy on test dataset</li></ul>",
+        "tags": ["Machine Learning", "AI", "Computer Vision"],
+        "technologies": ["Python", "TensorFlow", "Flask", "Docker"],
+        "startDate": "2024-02-01",
+        "endDate": "2024-03-15"
+    },
+    {
+        "slug": "fitness-tracking-app",
+        "title": "VB: Mobile Fitness Tracker",
+        "description": "VB: Cross-platform mobile application for tracking workouts and nutrition with social features.",
+        "imageUrl": "https://placehold.co/600x400/tech/fitness",
+        "link": "https://fitnesstracker.example.com",
+        "content": "<p>Created a comprehensive fitness tracking mobile app featuring:</p><ul><li>Workout plan generator</li><li>Nutrition tracking</li><li>Social sharing capabilities</li><li>Integration with wearable devices</li></ul>",
+        "tags": ["Mobile Development", "Health Tech", "Cross-platform"],
+        "technologies": ["React Native", "Firebase", "Redux", "HealthKit"],
+        "startDate": "2023-11-01",
+        "endDate": "2024-01-20"
+    },
+    {
+        "slug": "defi-exchange",
+        "title": "VB: Decentralized Exchange Platform",
+        "description": "VB: A secure and efficient decentralized cryptocurrency exchange built on Ethereum.",
+        "imageUrl": "https://placehold.co/600x400/tech/blockchain",
+        "link": "https://dex.example.com",
+        "content": "<p>Built a decentralized exchange with these features:</p><ul><li>Smart contract implementation</li><li>Token swapping functionality</li><li>Wallet integration</li><li>Real-time price feeds</li></ul>",
+        "tags": ["Blockchain", "DeFi", "Smart Contracts"],
+        "technologies": ["Solidity", "Web3.js", "React", "Hardhat"],
+        "startDate": "2023-07-15",
+        "endDate": "2023-10-30"
+    }
+]
