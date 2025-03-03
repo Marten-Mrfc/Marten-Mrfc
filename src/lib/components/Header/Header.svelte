@@ -1,76 +1,93 @@
 <script>
-  import NavBar from "../NavBar/NavBar.svelte";
-  import Button from "../button/Button.svelte";
-  export let title = "Welkom op mijn site";
-  export let buttonText = "Neem contact op";
+	import NavBar from '../NavBar/NavBar.svelte';
+	import { base } from '$app/paths';
+	import Button from '../button/Button.svelte';
+	export let title = 'Welcome to my site';
+	export let buttonText = 'Contact me';
 
-  let subtitles = ["Developer", "Gamer", "Student"];
-  let currentSubtitle = "";
-  let subtitleIndex = 0;
-  let charIndex = 0;
-  let isDeleting = false;
+	let subtitles = [
+		"Hey, I'm Marten!",
+		"I'm a developer",
+		'I code in lots of languages',
+		'I build minecraft plugins',
+		"I'm learning Svelte and Kotlin",
+		"I'm a passionate gamer",
+		'I solve complex problems',
+		'I love learning new tech',
+	];
+	let currentSubtitle = '';
+	let subtitleIndex = 0;
+	let charIndex = 0;
+	let isDeleting = false;
+	let typingSpeed = 80;
+	let pauseDelay = 1500;
 
-  function typeWriter() {
-      if (!isDeleting && charIndex < subtitles[subtitleIndex].length) {
-          currentSubtitle += subtitles[subtitleIndex].charAt(charIndex);
-          charIndex++;
-          setTimeout(typeWriter, 100);
-      } else if (isDeleting && charIndex > 0) {
-          currentSubtitle = currentSubtitle.slice(0, -1);
-          charIndex--;
-          setTimeout(typeWriter, 100);
-      } else {
-          isDeleting = !isDeleting;
-          if (!isDeleting) {
-              subtitleIndex = (subtitleIndex + 1) % subtitles.length;
-          }
-          setTimeout(typeWriter, 2000);
-      }
-  }
+	function typeWriter() {
+		// Adjust typing speed based on action
+		if (!isDeleting) {
+			typingSpeed = 80; // Normal typing speed
+		} else {
+			typingSpeed = 50; // Faster when deleting
+		}
 
-  typeWriter();
+		if (!isDeleting && charIndex < subtitles[subtitleIndex].length) {
+			currentSubtitle += subtitles[subtitleIndex].charAt(charIndex);
+			charIndex++;
+			setTimeout(typeWriter, typingSpeed);
+		} else if (isDeleting && charIndex > 0) {
+			currentSubtitle = currentSubtitle.slice(0, -1);
+			charIndex--;
+			setTimeout(typeWriter, typingSpeed);
+		} else {
+			isDeleting = !isDeleting;
+			if (!isDeleting) {
+				subtitleIndex = (subtitleIndex + 1) % subtitles.length;
+				setTimeout(typeWriter, 200); // Small pause before typing new text
+			} else {
+				setTimeout(typeWriter, pauseDelay); // Longer pause before deleting
+			}
+		}
+	}
 
-  function scrollToAboutMe() {
-    document.getElementById('about-me')?.scrollIntoView({ behavior: 'smooth' });
-}
+	typeWriter();
+
+	function scrollToAboutMe() {
+		document.getElementById('about-me')?.scrollIntoView({ behavior: 'smooth' });
+	}
 </script>
 
-<style>
-  @keyframes gradientCycle {
-      0% {
-          background-position: 0% 50%;
-      }
-      50% {
-          background-position: 100% 50%;
-      }
-      100% {
-          background-position: 0% 50%;
-      }
-  }
-
-  .animated-gradient {
-      background-size: 400% 400%;
-      animation: gradientCycle 8s ease-in-out infinite;
-  }
-  @keyframes moveUpDown {
-      0%, 100% {
-          transform: translateY(0);
-      }
-      50% {
-          transform: translateY(-10px);
-      }
-  }
-
-  .scroll-button {
-      font-size: 2rem;
-      animation: moveUpDown 1s infinite;
-  }
-</style>
-
-<NavBar/>
-<header class="text-center py-16 bg-gradient-to-tr from-purple-400 via-pink-400 to-red-400 text-white animated-gradient h-[89.1vh] relative">
-  <h1 class="text-5xl font-bold mb-4 tracking-wide">{title}</h1>
-  <h2 class="text-3xl mb-6 font-light min-h-[1.5rem] animate-pulse">Ik ben een {currentSubtitle}</h2>
-  <Button text={buttonText} variant="primary" size="md" onClick={() => location.href='/contact'} />
-  <Button on:click={scrollToAboutMe} text="↓" variant="scroll" />
+<NavBar />
+<header
+	class="animated-gradient relative h-[89.1vh] bg-gradient-to-tr from-purple-400 via-pink-400 to-red-400 py-16 text-center text-white"
+>
+	<h1 class="mb-4 text-5xl font-bold tracking-wide">{title}</h1>
+	<h2 class="mb-6 min-h-[1.5rem] text-3xl font-light">
+		<span class="inline-block">{currentSubtitle}<span class="animate-pulse">|</span></span>
+	</h2>
+	<Button
+		text={buttonText}
+		variant="primary"
+		size="md"
+		onClick={() => (location.href = `${base}/contact`)}
+	/>
+	<Button on:click={scrollToAboutMe} text="↓" variant="scroll" />
 </header>
+
+<style>
+	@keyframes gradientCycle {
+		0% {
+			background-position: 0% 50%;
+		}
+		50% {
+			background-position: 100% 50%;
+		}
+		100% {
+			background-position: 0% 50%;
+		}
+	}
+
+	.animated-gradient {
+		background-size: 400% 400%;
+		animation: gradientCycle 8s ease-in-out infinite;
+	}
+</style>

@@ -1,70 +1,53 @@
 [
     {
-        "slug": "project-website",
-        "title": "Website Project",
-        "description": "Dit was een project waar we een website moesten maken met de hulp van Mark Boom",
-        "imageUrl": "https://placehold.co/600x400/tech/portfolio",
-        "link": "https://portfolio.example.com",
-        "content": "Dit project was voor de klas een moeilijk project maar ik vond het redelijk makkelijk omdat ik veel voorkennis over programeren had. Ik heb daarom ervoor gekozen om de site in <b>svelte</b> te maken. <br><br><b>Pro's</b> <ul><li>Ik heb veel geleerd</li><li>Ik heb mijn kennis kunnen delen met mijn klasgenoten</li><li>Ik heb een mooie site gemaakt</li></ul><br><b>Con's</b> <ul><li>Er waren vaak momenten waarbij ik anderen moest helpen</li></ul>",
-        "tags": ["Web Development", "Svelte", "School"],
-        "startDate": "2025-01-06",
-        "endDate": "2025-02-14"
+        "slug": "knockbackffa",
+        "title": "KnockBackFFA",
+        "description": "The only open-source KnockBackFFA Plugin that is currently actively maintained",
+        "imageUrl": "https://placehold.co/600x400/purple/white?text=KnockBackFFA",
+        "link": "https://github.com/Marten-Mrfc/KnockBackFFA",
+        "content": "KnockBackFFA is my flagship Minecraft plugin that implements a popular minigame where players try to knock each other off platforms using knockback effects. I built it as a fully-featured solution with modern Kotlin code. <br><br><b>Features</b> <ul><li>Custom arenas and kits</li><li>Configurable kit settings via GUI</li><li>Scoreboard and Bossbar support</li><li>Clean, maintainable codebase</li></ul><br><b>Challenges</b> <ul><li>Ensuring fair gameplay mechanics</li><li>Optimizing for server performance</li><li>Supporting different Minecraft versions</li></ul><br><a href=\"https://builtbybit.com/resources/knockbackffa.47872/\" target=\"_blank\" class=\"download-button\"><span class=\"button-icon\">⬇️</span> Download on BuiltByBit</a>",
+        "tags": ["Minecraft", "Plugin Development", "Kotlin", "Game Design", "PaperMC"],
+        "startDate": "2024-04-04"
     },
     {
-        "slug": "eigen-project",
-        "title": "Eigen Project",
-        "description": "In dit project heb ik verschillende robots gemaakt",
-        "imageUrl": "https://placehold.co/600x400/tech/taskapp",
-        "link": "https://taskapp.example.com",
-        "content": "Dit project is nu nog gaande en is nog niet af.",
-        "tags": ["Robot", "Technologie", "School"],
-        "startDate": "2024-11-05"
+        "slug": "typewriter",
+        "title": "TypeWriter",
+        "description": "Major contributor to an advanced player interactions plugin called TypeWriter for minecraft servers.",
+        "imageUrl": "https://placehold.co/600x400/00a5ff/white?text=TypeWriter",
+        "link": "https://github.com/gabber235/TypeWriter",
+        "content": "TypeWriter is an open-source player interactions plugin based in a web editor for Minecraft servers that I contribute to as the primary documentation maintainer. <br><br><b>Key Contributions</b> <ul><li>Rewrote documentation twice to improve clarity and user experience</li><li>Developed advanced features including EntrySearch, Video Player integration, and Difficulty indicators</li><li>Implemented version compatibility tracking system</li></ul><br><b>Impact</b> <ul><li>Enhanced documentation navigation and searchability</li><li>Created accessible learning resources for users of all skill levels</li></ul><br>I continue to actively maintain the documentation as the project evolves.<br><a href=\"https://modrinth.com/plugin/typewriter\" target=\"_blank\" class=\"download-button\"><span class=\"button-icon\">⬇️</span> Download on Modrinth</a>",        
+        "tags": ["Minecraft", "Open Source", "Documentation", "Technical Writing", "Quest System"],       
+        "startDate": "2022-09-11"
+    },
+	{
+		"slug": "mobwaves",
+		"title": "MobWaves",
+		"description": "A mobwaves plugin for Minecraft servers",
+		"imageUrl": "https://placehold.co/600x400/green/white?text=MobWaves",
+		"link": "https://github.com/Marten-Mrfc/MobWaves",
+		"content": "MobWaves is a PaperMC plugin I developed that creates wave-based mob attacks for Minecraft servers. This plugin adds an exciting survival challenge where players must defend against increasingly difficult waves of monsters. <br><br><b>Features</b> <ul><li>Configurable wave difficulty progression</li><li>Custom mob types and attributes</li><li>Special boss waves</li><li>Player rewards system</li><li>Area-bound wave spawning</li></ul>",
+		"tags": ["Minecraft", "Plugin Development", "Kotlin", "PaperMC", "Game Mechanics"],
+		"startDate": "2025-02-02"
     },
     {
-        "slug": "vakantie-project",
-        "title": "Vakantie Project",
-        "description": "Dit project moesten we een tekening maken over onze vakantie",
-        "imageUrl": "https://placehold.co/600x400/tech/ecommerce",
-        "link": "https://shop.example.com",
-        "content": "Ik heb een tekening gemaakt over mijn vakantie.",
-        "tags": ["School", "tekening", "Vakantie"],
-        "startDate": "2023-06-01",
-        "endDate": "2023-08-30"
+        "slug": "tournament",
+        "title": "Tournament",
+        "description": "A commissioned tournament management plugin for RepublicMC Minecraft server",
+        "imageUrl": "https://placehold.co/600x400/f4cb14/white?text=Tournament",
+        "link": "https://github.com/Marten-Mrfc/Tournament",
+        "content": "Tournament is a custom-built Minecraft plugin I developed as a commissioned project for RepublicMC, a Minecraft server. Written entirely in Kotlin, this plugin provides tournament management capabilities tailored to their specific requirements.<br><br><b>Features</b><ul><li>Custom tournament management system</li><li>Seamless integration with RepublicMC's server environment</li><li>Modern Kotlin implementation for maintainability</li><li>Complete administrative controls</li><li>Player participation tracking</li></ul><br><b>Technical Aspects</b><ul><li>Built with 100% Kotlin</li><li>Clean, maintainable codebase</li><li>Optimized for server performance</li><li>Client-specific feature implementation</li></ul>",
+        "tags": ["Minecraft", "Plugin Development", "Kotlin", "Commission Work", "PaperMC"],
+        "startDate": "2025-01-26",
+        "endDate": "2025-02-25"
     },
-    {
-        "slug": "ai-image-classifier",
-        "title": "VB: AI Image Classification System",
-        "description": "VB: Deep learning model that classifies images into multiple categories with high accuracy using TensorFlow.",
-        "imageUrl": "https://placehold.co/600x400/tech/ai",
-        "link": "https://aiclassifier.example.com",
-        "content": "<p>Developed an AI-powered image classification system with:</p><ul><li>Custom CNN architecture</li><li>Web interface for easy testing</li><li>API endpoint for integration</li><li>95% accuracy on test dataset</li></ul>",
-        "tags": ["Machine Learning", "AI", "Computer Vision"],
-        "technologies": ["Python", "TensorFlow", "Flask", "Docker"],
-        "startDate": "2024-02-01",
-        "endDate": "2024-03-15"
-    },
-    {
-        "slug": "fitness-tracking-app",
-        "title": "VB: Mobile Fitness Tracker",
-        "description": "VB: Cross-platform mobile application for tracking workouts and nutrition with social features.",
-        "imageUrl": "https://placehold.co/600x400/tech/fitness",
-        "link": "https://fitnesstracker.example.com",
-        "content": "<p>Created a comprehensive fitness tracking mobile app featuring:</p><ul><li>Workout plan generator</li><li>Nutrition tracking</li><li>Social sharing capabilities</li><li>Integration with wearable devices</li></ul>",
-        "tags": ["Mobile Development", "Health Tech", "Cross-platform"],
-        "technologies": ["React Native", "Firebase", "Redux", "HealthKit"],
-        "startDate": "2023-11-01",
-        "endDate": "2024-01-20"
-    },
-    {
-        "slug": "defi-exchange",
-        "title": "VB: Decentralized Exchange Platform",
-        "description": "VB: A secure and efficient decentralized cryptocurrency exchange built on Ethereum.",
-        "imageUrl": "https://placehold.co/600x400/tech/blockchain",
-        "link": "https://dex.example.com",
-        "content": "<p>Built a decentralized exchange with these features:</p><ul><li>Smart contract implementation</li><li>Token swapping functionality</li><li>Wallet integration</li><li>Real-time price feeds</li></ul>",
-        "tags": ["Blockchain", "DeFi", "Smart Contracts"],
-        "technologies": ["Solidity", "Web3.js", "React", "Hardhat"],
-        "startDate": "2023-07-15",
-        "endDate": "2023-10-30"
-    }
+	{
+		"slug": "mlib",
+		"title": "MLib",
+		"description": "A Marten_mrfcyt Kotlin PaperMC Plugin Library",
+		"imageUrl": "https://placehold.co/600x400/000334/white?text=MLib",
+		"link": "https://github.com/Marten-Mrfc/MLib",
+		"content": "MLib is my personal library for Minecraft plugin development that streamlines the creation of PaperMC plugins using Kotlin. I developed this library to abstract common functionality and provide a consistent foundation for all my plugin projects. <br><br><b>Features</b> <ul><li>Command framework with argument parsing</li><li>Configuration management utilities</li><li>GUI menu creation API</li><li>Common utility functions like messaging</li></ul>",
+		"tags": ["Minecraft", "Library", "Kotlin", "API Design", "PaperMC"],
+		"startDate": "2025-02-16"
+	}
 ]
