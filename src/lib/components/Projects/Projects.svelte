@@ -34,12 +34,13 @@
 						<h3 class="mb-4 text-2xl font-bold text-white">{project.title}</h3>
 						<p class="mb-6 line-clamp-3 text-gray-400">{project.description}</p>
 						<div class="mt-auto">
-							<Button
-								text="View Project →"
-								variant="primary"
-								size="md"
-								onClick={() => handleProjectClick(project.slug)}
-							/>
+                            <a href={`${base}/projects/${project.slug}`}>
+                                <Button
+                                    text="View Project →"
+                                    variant="primary"
+                                    size="md"
+                                />
+                            </a>
 						</div>
 					</div>
 				</div>
