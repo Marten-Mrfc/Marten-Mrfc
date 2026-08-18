@@ -1,0 +1,108 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const projects = (await getCollection("projects")).sort(
+    (a, b) => a.data.order - b.data.order,
+);
+const posts = (await getCollection("blog", ({ data }) => !data.draft))
+    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+    .slice(0, 3);
+
+const jsonLd = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Marten",
+    url: "https://marten-mrfc.is-a.dev",
+    sameAs: ["https://github.com/Marten-Mrfc"],
+    jobTitle: "Developer",
+    knowsAbout: [
+        "Kotlin",
+        "Minecraft plugin development",
+        "Technical documentation",
+    ],
+});
+---
+
+<BaseLayout
+    title="Marten - Developer"
+    description="I build loads of things. From Full-stack web applications to simple Minecraft plugins"
+>
+    <script
+        is:inline
+        type="application/ld+json"
+        set:html={jsonLd}
+        slot="head"
+    />
+
+    <section class="hero" aria-labelledby="intro-heading">
+        <h1 id="intro-heading">
+            I build Minecraft server plugins in&nbsp;Kotlin.
+        </h1>
+        <p>
+            Hey, I'm Marten. My main job is being a Full-stack developer and in my free time I work on projects like <a href="/projects/typewriter/">TypeWriter</a> and that work lives on <a href="https://github.com/Marten-Mrfc">GitHub</a>.
+        </p>
+        <p>
+            Still a simple school Student who is based in the <span style="color:red;">Net</span><span style="color: white;">her</span><span style="color: blue;">lands</span>.
+        </p>
+    </section>
+
+    <section aria-labelledby="projects-heading">
+        <h2 id="projects-heading">Projects</h2>
+        <ul class="rows">
+            {
+                projects.map((project) => (
+                    <li class="row">
+                        <div>
+                            <h3>
+                                <a
+                                    href={`/projects/${project.id}/`}
+                                    style={`view-transition-name: project-${project.id}`}
+                                >
+                                    {project.data.title}
+                                </a>
+                            </h3>
+                            <p>{project.data.description}</p>
+                        </div>
+                        <span class="meta">
+                            {project.data.startDate.getFullYear()}–
+                            {project.data.endDate?.getFullYear() ?? "now"}
+                        </span>
+                    </li>
+                ))
+            }
+        </ul>
+    </section>
+
+    <section aria-labelledby="writing-heading">
+        <h2 id="writing-heading">Writing</h2>
+        <ul class="rows">
+            {
+                posts.map((post) => (
+                    <li class="row">
+                        <div>
+                            <h3>
+                                <a
+                                    href={`/blog/${post.id}/`}
+                                    style={`view-transition-name: post-${post.id}`}
+                                >
+                                    {post.data.title}
+                                </a>
+                            </h3>
+                            <p>{post.data.description}</p>
+                        </div>
+                        <span class="meta">
+                            <time
+                                datetime={post.data.pubDate
+                                    .toISOString()
+                                    .slice(0, 10)}
+                            >
+                                {post.data.pubDate.toISOString().slice(0, 10)}
+                            </time>
+                        </span>
+                    </li>
+                ))
+            }
+        </ul>
+    </section>
+</BaseLayout>

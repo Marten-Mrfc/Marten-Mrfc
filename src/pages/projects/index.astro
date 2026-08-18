@@ -1,0 +1,39 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout
+	title="Marten - Projects"
+	description="Minecraft plugins and open-source work: TypeWriter documentation, PaperMC plugins in Kotlin."
+>
+	<header class="article-header">
+		<h1>Projects</h1>
+		<p class="meta">what I build and maintain</p>
+	</header>
+
+	<ul class="rows">
+		{
+			projects.map((project) => (
+				<li class="row">
+					<div>
+						<h3>
+							<a
+								href={`/projects/${project.id}/`}
+								style={`view-transition-name: project-${project.id}`}>{project.data.title}</a
+							>
+						</h3>
+						<p>{project.data.description}</p>
+					</div>
+					<span class="meta">
+						{project.data.startDate.getFullYear()}–{project.data.endDate?.getFullYear() ?? 'now'}
+						<br />
+						{project.data.role.toLowerCase()}
+					</span>
+				</li>
+			))
+		}
+	</ul>
+</BaseLayout>

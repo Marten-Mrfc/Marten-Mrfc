@@ -1,0 +1,36 @@
+---
+interface Props {
+	title: string;
+	description: string;
+	type?: 'website' | 'article';
+}
+
+const { title, description, type = 'website' } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="sitemap" href="/sitemap-index.xml" />
+<link rel="alternate" type="application/rss+xml" title="Marten - blog" href="/rss.xml" />
+
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:type" content={type} />
+<meta property="og:url" content={canonical} />
+<meta property="og:site_name" content="Marten" />
+<meta name="twitter:card" content="summary" />
+
+<script is:inline>
+	// Set the theme before first paint to avoid a flash of the wrong palette.
+	(() => {
+		const stored = localStorage.getItem('theme');
+		if (stored === 'light' || stored === 'dark') {
+			document.documentElement.dataset.theme = stored;
+		}
+	})();
+</script>

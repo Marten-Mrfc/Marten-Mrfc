@@ -1,0 +1,666 @@
+/* ---------------------------------------------------------------------------
+   Design tokens — modern theming:
+   - one token set via light-dark() (color-scheme decides which side applies)
+   - system theme by default; [data-theme] pins it explicitly
+   - OKLCH wide-gamut accent upgrade on P3 displays
+   All pairs are WCAG 2.2 AA checked in both schemes:
+   text >= 14:1, muted >= 6.7:1, accent-as-text >= 5.8:1, focus ring >= 3:1.
+--------------------------------------------------------------------------- */
+
+:root {
+	color-scheme: light dark;
+
+	--bg: light-dark(#faf9f7, #141312);
+	--bg-subtle: light-dark(#f1efeb, #1d1b19);
+	--text: light-dark(#1f1d1b, #e7e4df);
+	--text-muted: light-dark(#5d574f, #a39d94);
+	--border: light-dark(#ddd8d1, #2f2c28);
+	--accent: light-dark(#17703a, #56c271);
+
+	&[data-theme='light'] {
+		color-scheme: light;
+	}
+
+	&[data-theme='dark'] {
+		color-scheme: dark;
+	}
+}
+
+@media (color-gamut: p3) {
+	:root {
+		/* same lightness as the sRGB values (contrast preserved), more chroma */
+		--accent: light-dark(oklch(0.5 0.15 152), oklch(0.75 0.16 150));
+	}
+}
+
+/* ---------------------------------------------------------------------------
+   Base
+--------------------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	scroll-padding-top: 2rem;
+	scrollbar-gutter: stable;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	html {
+		scroll-behavior: smooth;
+	}
+
+	/* Cross-document view transitions (MPA navigation morphs) */
+	@view-transition {
+		navigation: auto;
+	}
+
+	.site-header {
+		view-transition-name: site-header;
+	}
+
+	.site-footer {
+		view-transition-name: site-footer;
+	}
+}
+
+body {
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	min-height: 100dvh;
+	background: var(--bg);
+	color: var(--text);
+	font-family: var(--font-sans);
+	font-size: 1.0625rem;
+	line-height: 1.65;
+	-webkit-font-smoothing: antialiased;
+}
+
+main {
+	flex: 1;
+	width: 100%;
+	padding-bottom: 2.5rem;
+}
+
+.wrap {
+	max-width: 42rem;
+	margin-inline: auto;
+	padding-inline: 1.25rem;
+}
+
+::selection {
+	background: var(--accent);
+	color: var(--bg);
+}
+
+/* Scroll-to-text-fragment highlights (#:~:text=...) */
+::target-text {
+	background: var(--accent);
+	color: var(--bg);
+}
+
+/* ---------------------------------------------------------------------------
+   Typography
+--------------------------------------------------------------------------- */
+
+h1,
+h2,
+h3 {
+	font-weight: 600;
+	line-height: 1.25;
+	letter-spacing: -0.01em;
+	text-wrap: balance;
+	text-box: trim-both cap alphabetic;
+}
+
+h1 {
+	font-size: clamp(1.75rem, 1.25rem + 2.5vw, 2.25rem);
+	margin: 0 0 1rem;
+}
+
+h2 {
+	font-size: 1.375rem;
+	margin: 2.5rem 0 0.875rem;
+}
+
+h3 {
+	font-size: 1.0625rem;
+	margin: 1.75rem 0 0.5rem;
+}
+
+.hero {
+	margin-top: 2rem;
+
+	& p {
+		max-width: 38rem;
+	}
+}
+
+p {
+	margin: 0 0 1rem;
+	text-wrap: pretty;
+}
+
+li {
+	text-wrap: pretty;
+}
+
+a {
+	color: var(--accent);
+	text-decoration: underline;
+	text-decoration-thickness: 1px;
+	text-underline-offset: 0.2em;
+
+	&:hover {
+		text-decoration-thickness: 2px;
+	}
+}
+
+.mono {
+	font-family: var(--font-mono);
+	font-size: 0.8125rem;
+}
+
+.muted {
+	color: var(--text-muted);
+}
+
+hr {
+	border: 0;
+	border-top: 1px solid var(--border);
+	margin: 3rem 0;
+}
+
+/* ---------------------------------------------------------------------------
+   Focus & accessibility
+--------------------------------------------------------------------------- */
+
+:focus-visible {
+	outline: 2px solid var(--accent);
+	outline-offset: 2px;
+	border-radius: 2px;
+}
+
+.skip-link {
+	position: absolute;
+	top: -100%;
+	left: 1rem;
+	z-index: 100;
+	padding: 0.5rem 1rem;
+	background: var(--bg);
+	border: 1px solid var(--border);
+	font-family: var(--font-mono);
+	font-size: 0.875rem;
+
+	&:focus {
+		top: 1rem;
+	}
+}
+
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
+	border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+	}
+}
+
+/* ---------------------------------------------------------------------------
+   Header / footer
+--------------------------------------------------------------------------- */
+
+.site-header {
+	padding-block: 1.25rem;
+
+	& .wrap {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		flex-wrap: wrap;
+	}
+}
+
+.brand {
+	font-weight: 600;
+	font-size: 1.0625rem;
+	color: var(--text);
+	text-decoration: none;
+
+	&:hover {
+		text-decoration: underline;
+		text-decoration-thickness: 2px;
+	}
+}
+
+.site-nav ul {
+	display: flex;
+	gap: 0.25rem;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.site-nav a {
+	display: inline-block;
+	padding: 0.5rem 0.625rem;
+	font-family: var(--font-mono);
+	font-size: 0.8125rem;
+	color: var(--text-muted);
+	text-decoration: none;
+
+	&:hover {
+		color: var(--text);
+		text-decoration: underline;
+		text-underline-offset: 0.3em;
+	}
+
+	&[aria-current='page'] {
+		color: var(--text);
+		text-decoration: underline;
+		text-underline-offset: 0.3em;
+	}
+}
+
+.site-footer {
+	margin-top: auto;
+	padding-block: 2rem;
+	border-top: 1px solid var(--border);
+
+	& .wrap {
+		display: flex;
+		justify-content: space-between;
+		gap: 1rem;
+		flex-wrap: wrap;
+		font-family: var(--font-mono);
+		font-size: 0.8125rem;
+		color: var(--text-muted);
+	}
+
+	& ul {
+		display: flex;
+		gap: 1.25rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	& a {
+		display: inline-block;
+		padding-block: 0.25rem;
+		color: var(--text-muted);
+
+		&:hover {
+			color: var(--text);
+		}
+	}
+}
+
+/* ---------------------------------------------------------------------------
+   Theme menu — Popover API + CSS anchor positioning + @starting-style
+--------------------------------------------------------------------------- */
+
+.theme-toggle {
+	padding: 0.5rem 0.625rem;
+	background: none;
+	border: 0;
+	cursor: pointer;
+	font-family: var(--font-mono);
+	font-size: 0.8125rem;
+	color: var(--text-muted);
+	anchor-name: --theme-toggle;
+
+	&:hover {
+		color: var(--text);
+		text-decoration: underline;
+		text-underline-offset: 0.3em;
+	}
+}
+
+.theme-menu {
+	/* fallback position for browsers without anchor positioning */
+	position: fixed;
+	inset: 4rem 1rem auto auto;
+	margin: 0;
+	padding: 0.25rem;
+	min-width: 7.5rem;
+	background: var(--bg);
+	color: var(--text);
+	border: 1px solid var(--border);
+	border-radius: 6px;
+	box-shadow: 0 4px 16px light-dark(rgb(0 0 0 / 0.08), rgb(0 0 0 / 0.4));
+
+	@supports (anchor-name: --a) {
+		position-anchor: --theme-toggle;
+		inset: auto;
+		top: calc(anchor(bottom) + 4px);
+		right: anchor(right);
+	}
+
+	/* animated entry/exit via @starting-style + discrete transitions */
+	opacity: 0;
+	translate: 0 -4px;
+	transition:
+		opacity 0.15s ease-out,
+		translate 0.15s ease-out,
+		display 0.15s allow-discrete,
+		overlay 0.15s allow-discrete;
+
+	&:popover-open {
+		opacity: 1;
+		translate: 0 0;
+
+		@starting-style {
+			opacity: 0;
+			translate: 0 -4px;
+		}
+	}
+
+	& button {
+		display: block;
+		width: 100%;
+		padding: 0.4rem 0.75rem;
+		background: none;
+		border: 0;
+		border-radius: 4px;
+		cursor: pointer;
+		text-align: left;
+		font-family: var(--font-mono);
+		font-size: 0.8125rem;
+		color: var(--text);
+
+		&:hover {
+			background: var(--bg-subtle);
+		}
+
+		&[aria-pressed='true']::after {
+			content: ' *';
+			color: var(--accent);
+		}
+	}
+}
+
+/* Theme-switch circular reveal (same-document view transition).
+   While it runs, strip every named group so the whole page is one snapshot. */
+html[data-theme-transition] * {
+	view-transition-name: none !important;
+}
+
+html[data-theme-transition]::view-transition-old(root),
+html[data-theme-transition]::view-transition-new(root) {
+	animation: none;
+	mix-blend-mode: normal;
+}
+
+html[data-theme-transition]::view-transition-new(root) {
+	z-index: 1;
+}
+
+/* ---------------------------------------------------------------------------
+   List rows (projects, posts) — accessible "card" pattern:
+   only the heading is a link, stretched over the row with a pseudo-element.
+   Row stacking is a container query; reveal is a scroll-driven animation.
+--------------------------------------------------------------------------- */
+
+.rows {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	container-type: inline-size;
+}
+
+.row {
+	position: relative;
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	gap: 1.5rem;
+	padding-block: 1rem;
+	border-top: 1px solid var(--border);
+
+	.rows > &:last-child {
+		border-bottom: 1px solid var(--border);
+	}
+
+	& h3 {
+		margin: 0 0 0.25rem;
+		font-size: 1.0625rem;
+
+		& a {
+			color: var(--text);
+			text-decoration: none;
+
+			&::after {
+				content: '';
+				position: absolute;
+				inset: 0;
+			}
+
+			&:focus-visible {
+				outline: none;
+			}
+		}
+	}
+
+	&:hover h3 a {
+		text-decoration: underline;
+		text-decoration-thickness: 2px;
+		text-underline-offset: 0.2em;
+	}
+
+	&:has(h3 a:focus-visible) {
+		outline: 2px solid var(--accent);
+		outline-offset: 2px;
+	}
+
+	& p {
+		margin: 0;
+		color: var(--text-muted);
+		font-size: 0.9375rem;
+	}
+
+	& .meta {
+		flex-shrink: 0;
+		font-family: var(--font-mono);
+		font-size: 0.8125rem;
+		font-variant-numeric: tabular-nums;
+		white-space: nowrap;
+		color: var(--text-muted);
+		text-align: right;
+	}
+}
+
+@container (width < 34rem) {
+	.row {
+		flex-direction: column;
+		gap: 0.25rem;
+
+		& .meta {
+			text-align: left;
+		}
+	}
+}
+
+@supports (animation-timeline: view()) {
+	@media (prefers-reduced-motion: no-preference) {
+		.row {
+			animation: row-in 0.5s ease-out both;
+			animation-timeline: view();
+			animation-range: entry 0% entry 60%;
+		}
+	}
+}
+
+@keyframes row-in {
+	from {
+		opacity: 0.2;
+		translate: 0 12px;
+	}
+}
+
+/* ---------------------------------------------------------------------------
+   Reading progress (blog posts) — pure CSS scroll-driven animation
+--------------------------------------------------------------------------- */
+
+@supports (animation-timeline: scroll()) {
+	@media (prefers-reduced-motion: no-preference) {
+		.reading-progress {
+			position: fixed;
+			inset: 0 0 auto 0;
+			height: 3px;
+			z-index: 10;
+			background: var(--accent);
+			transform-origin: left;
+			animation: reading-progress linear both;
+			animation-timeline: scroll(root);
+		}
+	}
+}
+
+@keyframes reading-progress {
+	from {
+		scale: 0 1;
+	}
+
+	to {
+		scale: 1 1;
+	}
+}
+
+/* ---------------------------------------------------------------------------
+   Article / prose (markdown output)
+--------------------------------------------------------------------------- */
+
+.article-header {
+	margin-block: 2.25rem 1.75rem;
+
+	& h1 {
+		margin-bottom: 0.5rem;
+	}
+
+	& .meta {
+		font-family: var(--font-mono);
+		font-size: 0.8125rem;
+		color: var(--text-muted);
+	}
+}
+
+.prose {
+	& ul,
+	& ol {
+		padding-left: 1.25rem;
+		margin: 0 0 1rem;
+	}
+
+	& li {
+		margin-block: 0.25rem;
+	}
+
+	& blockquote {
+		margin: 1.5rem 0;
+		padding-left: 1rem;
+		border-left: 2px solid var(--border);
+		color: var(--text-muted);
+	}
+
+	& code {
+		font-family: var(--font-mono);
+		font-size: 0.875em;
+		background: var(--bg-subtle);
+		padding: 0.15em 0.35em;
+		border-radius: 3px;
+	}
+
+	& pre {
+		padding: 1rem 1.25rem;
+		border: 1px solid var(--border);
+		border-radius: 4px;
+		overflow-x: auto;
+		font-size: 0.875rem;
+		line-height: 1.6;
+
+		& code {
+			background: none;
+			padding: 0;
+			font-size: inherit;
+		}
+	}
+
+	& img {
+		max-width: 100%;
+		height: auto;
+		border-radius: 4px;
+	}
+}
+
+/* Shiki dual theme: switch code block palette with the site theme */
+:root[data-theme='dark'] .astro-code,
+:root[data-theme='dark'] .astro-code span {
+	color: var(--shiki-dark) !important;
+	background-color: var(--shiki-dark-bg) !important;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root:not([data-theme]) .astro-code,
+	:root:not([data-theme]) .astro-code span {
+		color: var(--shiki-dark) !important;
+		background-color: var(--shiki-dark-bg) !important;
+	}
+}
+
+/* ---------------------------------------------------------------------------
+   Small bits
+--------------------------------------------------------------------------- */
+
+.tag-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.375rem 1rem;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	font-family: var(--font-mono);
+	font-size: 0.8125rem;
+	color: var(--text-muted);
+
+	& li::before {
+		content: '#';
+		opacity: 0.6;
+	}
+}
+
+.defs {
+	display: grid;
+	grid-template-columns: max-content 1fr;
+	gap: 0.375rem 1.5rem;
+	margin: 0 0 1rem;
+
+	& dt {
+		font-family: var(--font-mono);
+		font-size: 0.8125rem;
+		color: var(--text-muted);
+		padding-top: 0.15rem;
+	}
+
+	& dd {
+		margin: 0;
+	}
+}

@@ -1,0 +1,108 @@
+---
+const nav = [
+	{ href: '/projects/', label: '~/projects' },
+	{ href: '/blog/', label: '~/blog' },
+	{ href: '/contact/', label: '~/contact' }
+];
+
+const path = Astro.url.pathname;
+const isCurrent = (href: string) => path === href || path.startsWith(href);
+---
+
+<header class="site-header">
+	<div class="wrap">
+		<a class="brand" href="/">Marten</a>
+		<nav class="site-nav" aria-label="Main">
+			<ul>
+				{
+					nav.map((item) => (
+						<li>
+							<a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
+								{item.label}
+							</a>
+						</li>
+					))
+				}
+				<li>
+					<button
+						class="theme-toggle"
+						id="theme-button"
+						type="button"
+						popovertarget="theme-menu"
+						aria-label="Choose color theme"
+					>
+						theme
+					</button>
+					<div id="theme-menu" class="theme-menu" popover>
+						<button type="button" data-set-theme="light">light</button>
+						<button type="button" data-set-theme="system">system</button>
+						<button type="button" data-set-theme="dark">dark</button>
+					</div>
+				</li>
+			</ul>
+		</nav>
+	</div>
+</header>
+
+<script>
+	const root = document.documentElement;
+	const menu = document.getElementById('theme-menu')!;
+	const trigger = document.getElementById('theme-button')!;
+	const options = menu.querySelectorAll<HTMLButtonElement>('[data-set-theme]');
+
+	const current = () => root.dataset.theme ?? 'system';
+	const mark = () => {
+		for (const option of options) {
+			option.setAttribute('aria-pressed', String(option.dataset.setTheme === current()));
+		}
+	};
+	mark();
+
+	const applyTheme = (value: string) => {
+		if (value === 'system') {
+			delete root.dataset.theme;
+			localStorage.removeItem('theme');
+		} else {
+			root.dataset.theme = value;
+			localStorage.setItem('theme', value);
+		}
+		mark();
+	};
+
+	menu.addEventListener('click', (event) => {
+		const option = (event.target as HTMLElement).closest<HTMLButtonElement>('[data-set-theme]');
+		if (!option) return;
+		menu.hidePopover();
+
+		const value = option.dataset.setTheme!;
+		const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+		if (!document.startViewTransition || reduceMotion || value === current()) {
+			applyTheme(value);
+			return;
+		}
+
+		// Circular reveal from the toggle button, painted as a view transition.
+		const rect = trigger.getBoundingClientRect();
+		const x = rect.left + rect.width / 2;
+		const y = rect.top + rect.height / 2;
+		const radius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+
+		root.setAttribute('data-theme-transition', '');
+		const transition = document.startViewTransition(() => applyTheme(value));
+		transition.ready
+			.then(() => {
+				root.animate(
+					{
+						clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${radius}px at ${x}px ${y}px)`]
+					},
+					{ duration: 400, easing: 'ease-in', pseudoElement: '::view-transition-new(root)' }
+				);
+			})
+			// ready rejects when the transition can't run (e.g. hidden tab) —
+			// the theme itself still applies, so there's nothing to handle.
+			.catch(() => {});
+		transition.finished
+			.finally(() => root.removeAttribute('data-theme-transition'))
+			.catch(() => {});
+	});
+</script>

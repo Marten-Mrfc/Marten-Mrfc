@@ -1,0 +1,41 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+	const posts = await getCollection('blog', ({ data }) => !data.draft);
+	return posts.map((post) => ({
+		params: { id: post.id },
+		props: { post }
+	}));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const isoDate = post.data.pubDate.toISOString().slice(0, 10);
+const displayDate = post.data.pubDate.toLocaleDateString('en-US', {
+	year: 'numeric',
+	month: 'long',
+	day: 'numeric'
+});
+---
+
+<BaseLayout title={`Marten - ${post.data.title}`} description={post.data.description} type="article">
+	<div class="reading-progress" aria-hidden="true"></div>
+	<article>
+		<header class="article-header">
+			<h1 style={`view-transition-name: post-${post.id}`}>{post.data.title}</h1>
+			<p class="meta"><time datetime={isoDate}>{displayDate}</time></p>
+		</header>
+
+		<div class="prose">
+			<Content />
+		</div>
+
+		<hr />
+		<p class="mono muted">
+			Thoughts? <a href="mailto:martensog@gmail.com">Email me</a> or find me on Discord
+			(@marten_mrfcyt).
+		</p>
+	</article>
+</BaseLayout>

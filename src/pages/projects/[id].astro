@@ -1,0 +1,58 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+	const projects = await getCollection('projects');
+	return projects.map((project) => ({
+		params: { id: project.id },
+		props: { project }
+	}));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+
+const formatDate = (date: Date) =>
+	date.toLocaleDateString('en-US', { year: 'numeric', month: 'short' });
+---
+
+<BaseLayout title={`Marten - ${project.data.title}`} description={project.data.description} type="article">
+	<article>
+		<header class="article-header">
+			<h1 style={`view-transition-name: project-${project.id}`}>{project.data.title}</h1>
+			<p class="meta">
+				{formatDate(project.data.startDate)} – {
+					project.data.endDate ? formatDate(project.data.endDate) : 'ongoing'
+				}
+			</p>
+		</header>
+
+		<dl class="defs">
+			<dt>role</dt>
+			<dd>{project.data.role}</dd>
+			<dt>source</dt>
+			<dd><a href={project.data.repo}>{project.data.repo.replace('https://', '')}</a></dd>
+			{
+				project.data.website && (
+					<>
+						<dt>website</dt>
+						<dd>
+							<a href={project.data.website}>{project.data.website.replace('https://', '')}</a>
+						</dd>
+					</>
+				)
+			}
+		</dl>
+
+		<ul class="tag-list" aria-label="Topics">
+			{project.data.tags.map((tag) => <li>{tag.toLowerCase().replaceAll(' ', '-')}</li>)}
+		</ul>
+
+		<hr />
+
+		<div class="prose">
+			<Content />
+		</div>
+	</article>
+</BaseLayout>
