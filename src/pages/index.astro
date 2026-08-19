@@ -12,7 +12,7 @@ const posts = (await getCollection("blog", ({ data }) => !data.draft))
 const jsonLd = JSON.stringify({
     "@context": "https://schema.org",
     "@type": "Person",
-    name: "Marten",
+    name: "Marten Mrfc",
     url: "https://marten-mrfc.is-a.dev",
     sameAs: ["https://github.com/Marten-Mrfc"],
     jobTitle: "Developer",
@@ -36,8 +36,19 @@ const jsonLd = JSON.stringify({
     />
 
     <section class="hero" aria-labelledby="intro-heading">
-        <h1 id="intro-heading">
-            I build Minecraft server plugins in&nbsp;Kotlin.
+        <h1 id="intro-heading" class="rotator">
+            <span class="sr-only">I look at code.</span>
+            <span class="rotator-mask" aria-hidden="true">
+                <span class="rotator-list">
+                    <span>I look at code.</span>
+                    <span>I write Kotlin code.</span>
+                    <span>I love cows.</span>
+                    <span>I write TypeScript code.</span>
+                    <span>I write documentation.</span>
+                    <span>I look at documentation.</span>
+                    <span aria-hidden="true">I look at code.</span>
+                </span>
+            </span>
         </h1>
         <p>
             Hey, I'm Marten. My main job is being a Full-stack developer and in my free time I work on projects like <a href="/projects/typewriter/">TypeWriter</a> and that work lives on <a href="https://github.com/Marten-Mrfc">GitHub</a>.
@@ -106,3 +117,68 @@ const jsonLd = JSON.stringify({
         </ul>
     </section>
 </BaseLayout>
+
+<style>
+    /* Rotating headline — a vertical "roll": phrases are stacked in a column
+       and a one-line mask clips it, so the list scrolls up one phrase at a
+       time, holding on each long enough to read. The first phrase is repeated
+       at the end so the wrap-around from last → first is seamless.
+       Pure CSS; the accessible name lives in the sr-only heading above, so
+       screen readers hear one phrase and the cycle stays decorative. */
+    .rotator-mask {
+        display: inline-block;
+        height: 1lh;
+        overflow: hidden;
+        vertical-align: top;
+    }
+
+    .rotator-list {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .rotator-list > span {
+        height: 1lh;
+        white-space: nowrap;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+        .rotator-list {
+            /* One eased slide per phrase, most of each slot spent holding. */
+            animation: rotate-phrase 18s infinite;
+            animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+        }
+    }
+
+    /* Each phrase holds, then rolls up to the next. The final stop (-6lh) is
+       the duplicated first phrase, visually identical to 0 → no jump on loop. */
+    @keyframes rotate-phrase {
+        0%,
+        14% {
+            translate: 0 0;
+        }
+        16.67%,
+        30.6% {
+            translate: 0 -1lh;
+        }
+        33.33%,
+        47.3% {
+            translate: 0 -2lh;
+        }
+        50%,
+        64% {
+            translate: 0 -3lh;
+        }
+        66.67%,
+        80.6% {
+            translate: 0 -4lh;
+        }
+        83.33%,
+        97.3% {
+            translate: 0 -5lh;
+        }
+        100% {
+            translate: 0 -6lh;
+        }
+    }
+</style>

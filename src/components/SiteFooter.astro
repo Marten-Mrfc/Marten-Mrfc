@@ -4,7 +4,7 @@ const year = new Date().getFullYear();
 
 <footer class="site-footer">
 	<div class="wrap">
-		<p>&copy; {year} Marten &middot; built with Astro &middot; 2&nbsp;kB of JS</p>
+		<p>&copy; {year} Marten &middot; built with <a href="https://astro.build/">Astro</a> &middot; 2&nbsp;kB of JS &middot; loaded in <span class="load-time" data-load-time>&hellip;</span></p>
 		<ul>
 			<li><a href="https://github.com/Marten-Mrfc">github</a></li>
 			<li><a href="mailto:martensog@gmail.com">email</a></li>
@@ -12,3 +12,33 @@ const year = new Date().getFullYear();
 		</ul>
 	</div>
 </footer>
+
+<script is:inline>
+	// Page load time from the Navigation Timing API. This inline script runs
+	// as the parser reaches it — before first paint — so we can immediately
+	// paint the previous navigation's value from sessionStorage. That keeps the
+	// footer stable across MPA / view-transition navigations (no "…" flash and
+	// the footer snapshot matches on both sides of the morph); only the single
+	// number refines once this page's real load time is known.
+	(() => {
+		const el = document.querySelector('[data-load-time]');
+		if (!el) return;
+
+		const cached = sessionStorage.getItem('load-time');
+		if (cached) el.textContent = cached;
+
+		const show = () => {
+			const nav = performance.getEntriesByType('navigation')[0];
+			const ms =
+				nav && nav.loadEventEnd > 0
+					? nav.loadEventEnd - nav.startTime
+					: performance.now();
+			const text = `${Math.max(1, Math.round(ms))} ms`;
+			if (el.textContent !== text) el.textContent = text;
+			sessionStorage.setItem('load-time', text);
+		};
+
+		if (document.readyState === 'complete') show();
+		else addEventListener('load', show, { once: true });
+	})();
+</script>
